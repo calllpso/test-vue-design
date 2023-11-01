@@ -28,3 +28,13 @@ export function routerRelativePush(relativePath=null){
         console.log('error')
     }
 }
+
+export function currentRoute(){
+    return router.currentRoute.value.path
+}
+export function isChildRoute(){
+    // return /\/\w+\/\w+/.test($route.path) == false
+    return /\/\w+\/\w+/.test(router.currentRoute.value.path)
+    // return router.currentRoute.value.path
+}
+

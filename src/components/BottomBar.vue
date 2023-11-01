@@ -10,7 +10,7 @@ import Svg from '@components/Svg.vue'
                     Разработчик:
                 </span>
                 <span class="col-2">
-                    Служба связи
+                    Служба
                 </span>
             </div>    
             <div class="bottombar__item bottombar__balance">

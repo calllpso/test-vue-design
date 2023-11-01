@@ -35,7 +35,7 @@ export default defineConfig({
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@router': fileURLToPath(new URL('./src/router', import.meta.url)),
-      '@callback': fileURLToPath(new URL('./src/callback', import.meta.url))
+      '@classes': fileURLToPath(new URL('./src/classes', import.meta.url))
     }
   }
 })

@@ -66,7 +66,7 @@ const menuUp = ref([
         ]
     },
     { col1: 'file-chart',   col2:	'Отчеты', route: '/reports'},
-    { col1: 'script-text',  col2: 	'Списки', route: '/local' },    
+    { col1: 'script-text',  col2: 	'Списки', route: '/lists' },    
 ])
 
 const menuDown = ref([

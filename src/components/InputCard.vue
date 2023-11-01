@@ -1,7 +1,7 @@
 <script setup>
 // value such field of json
 import Btn from '@components/my_btn.vue'
-import Inpt from '@components/Inpt.vue'
+import InputText from '@components/InputText.vue'
 import sliderToggle from '@components/sliderToggle.vue'
 import Svg from '@components/Svg.vue'
 import { ref,toRaw, reactive } from 'vue'
@@ -13,12 +13,13 @@ const props = defineProps({
     btnApplyName: String
 })
 
-const localData = ref(props.dataFields);
-
+// emits
 const emits = defineEmits(['callback'])
 function callback(){
-    emits('callback', {single: localData.value.single, multiple: localData.value.multiple} )
+    emits('callback')
 }
+
+const localData = ref(props.dataFields);
 
 function addRow(){
     let entry = JSON.parse(JSON.stringify(toRaw(localData.value.multiple[0]))) //deep copy   
@@ -51,8 +52,8 @@ function delRow(index){
                 <tr >
                     <td class="card-form__col-name"> {{ item.name }} </td>
                     <td colspan="2">
-                        <Inpt v-if="item.type=='input'" placeholder="value" :value="item.value" @callback="(val) => item.value = val"/>
-                        <audio v-else-if="item.type=='audio'" class="audio" controls src="./src/components/marsh.mp3" type="audio/mpeg"></audio>
+                        <InputText v-if="item.type=='input'" placeholder="value" :value="item.value" @callback="(val) => item.value = val"/>
+                        <audio v-else-if="item.type=='audio'" class="audio" controls src="" type="audio/mpeg"></audio>
                     </td>
                 </tr>
             </template>
@@ -62,7 +63,7 @@ function delRow(index){
                 <tr>
                     <td class="card-form__col-name"> {{ item.name }} </td>
                     <td v-if="item.type=='input'">
-                        <Inpt placeholder="value" :value="item.value" @callback="(val) => item.value = val"/>
+                        <InputText placeholder="value" :value="item.value" @callback="(val) => item.value = val"/>
                     </td>
                     <td v-if="item.children">
                         <div class="card-form__flex-container">
@@ -115,6 +116,8 @@ function delRow(index){
     background: white
     &::-webkit-media-controls-enclosure
         background-color: white
+    &::-webkit-media-controls-panel
+        padding: 0
 
 
 
