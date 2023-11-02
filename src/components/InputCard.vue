@@ -1,6 +1,6 @@
 <script setup>
 // value such field of json
-import Btn from '@components/my_btn.vue'
+import MyBtn from '@components/MyBtn.vue'
 import InputText from '@components/InputText.vue'
 import sliderToggle from '@components/sliderToggle.vue'
 import Svg from '@components/Svg.vue'
@@ -93,13 +93,13 @@ function delRow(index){
 
             <tr v-if="dataFields.hasOwnProperty('multiple')">
                 <td  class="card-form__col-name">
-                    <Btn @click="addRow"> <Svg class="card-form__icon_plus" name="plus"></Svg> </Btn>
+                    <MyBtn @click="addRow"> <Svg class="card-form__icon_plus" name="plus"></Svg> </MyBtn>
                 </td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td colspan="3" class="card-form__bottom"><Btn @click="callback">{{ btnApplyName }}</Btn></td>
+                <td colspan="3" class="card-form__bottom"><MyBtn @click="callback">{{ btnApplyName }}</MyBtn></td>
             </tr>
 
         </tbody>

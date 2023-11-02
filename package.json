@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "sass": "^1.68.0",
     "sass-loader": "^13.3.2",
     "vite-svg-loader": "^4.0.0",

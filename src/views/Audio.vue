@@ -2,7 +2,7 @@
 import {routerRelativePush} from '@router/functions'
 // emits
 let myComponent = {
-    name: 'my_btn',
+    name: 'MyBtn',
     text: 'Добавить аудио',
     clickHandle: () => routerRelativePush('create')
 }

@@ -1,6 +1,6 @@
 <script setup>
 import Svg from '@components/Svg.vue'
-import my_btn from '@components/my_btn.vue'
+import MyBtn from '@components/MyBtn.vue'
 
 </script>
 

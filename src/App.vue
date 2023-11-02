@@ -3,10 +3,9 @@ import GridArea from '@components/GridArea.vue'
 import SideBar from '@components/SideBar.vue'
 import TopBar from '@components/TopBar.vue'
 import BottomBar from '@components/BottomBar.vue'
-import {ref, shallowRef} from 'vue';
+import {shallowRef} from 'vue';
 import { defineAsyncComponent } from 'vue';
-// import my_btn from '@components/my_btn.vue'
-// import Svg from '@components/Svg.vue';
+import { isDoubleChildRoute} from '@router/functions'
 
 const topBar__title = shallowRef(null)
 const topBar__functionalButton = shallowRef(null)
@@ -47,7 +46,7 @@ function defineMyComponent(btnComp){
               {{ topBar__title }}
           </template>
           <!-- во вложенных роутах не показывать функциональную кнопку -->
-          <template #right-menu v-if="/\/\w+\/\w+/.test($route.path) == false">
+          <template #right-menu v-if="!isDoubleChildRoute()">
               <component :is="topBar__functionalButton" 
                 v-if="topBar__functionalButton !=null" @click="topBar__functionalButton.click"
               > 

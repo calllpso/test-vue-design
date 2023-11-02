@@ -1,8 +1,8 @@
 <script setup>
-import {routerRelativePush, isChildRoute} from '@router/functions'
+import {routerRelativePush, isDoubleChildRoute} from '@router/functions'
 // emits
 let myComponent = {
-    name: 'my_btn',
+    name: 'MyBtn',
     text: 'Добавить список',
     clickHandle: () => routerRelativePush('create')
 } 
@@ -13,7 +13,7 @@ emits('callback_topBar__functionalButton', myComponent )
 </script>
 
 <template>
-    <template v-if="!isChildRoute()">
+    <template v-if="!isDoubleChildRoute()">
         lists
     </template>
     <router-view />

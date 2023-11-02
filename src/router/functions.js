@@ -32,9 +32,10 @@ export function routerRelativePush(relativePath=null){
 export function currentRoute(){
     return router.currentRoute.value.path
 }
-export function isChildRoute(){
+export function isDoubleChildRoute(){
     // return /\/\w+\/\w+/.test($route.path) == false
     return /\/\w+\/\w+/.test(router.currentRoute.value.path)
     // return router.currentRoute.value.path
 }
+
 

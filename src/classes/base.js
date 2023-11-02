@@ -1,4 +1,5 @@
-import {ref} from 'vue'
+import {ref, toRaw} from 'vue'
+import _ from 'lodash';
 
 export class Employee {
     constructor() {
@@ -102,5 +103,95 @@ export class List {
             } 
         this.apiJson.single.message = this.message
         return this.apiJson
+    }
+}
+
+
+
+
+// export class EmployeeTable {
+//     constructor(body) {
+//         this.thead = ref({ 
+//             surname:  'Фамилия',          
+//             name:     'Имя',      
+//             lastname: 'Отчество',          
+//             division: 'Подразделение',          
+//             position: 'Должность',          
+//             phone:    'Телефон',      
+//             actions:  'actions',          
+//         });
+//         this.tbody = ref([])
+//         this.service = ref({
+//             sort: {
+//                 field: '', orderBy: null
+//             } 
+//         })
+//         this.serialize(body)
+//     }
+
+//     serialize(data){
+//         for (let item in data){
+//             let entry = {common: {}, service: {}}
+//             for (let field in this.thead.value){
+//                 entry.common[field] = data[item][field]
+//             }
+//             entry.service.id = data[item].id
+//             this.tbody.value.push(entry)    
+//         }
+//     }
+// }
+
+export class EmployeeTable {
+    constructor(body) {
+        this.thead = { 
+            surname:  {value:   'Фамилия'      , sort: null        }               ,          
+            name:     {value:   'Имя'          , sort: null        }               ,      
+            lastname: {value:   'Отчество'     , sort: null        }              ,          
+            division: {value:   'Подразделение', sort: null        }             ,          
+            position: {value:   'Должность'    , sort: null        }             ,          
+            phone:    {value:   'Телефон'      , sort: null        }               ,      
+            actions:  {value:   'actions'      , sort: null        }               ,          
+        }
+        this.tbody = []
+        this.service = {
+            sort: {
+                field: '', orderBy: 0
+            } 
+        }
+        this.sortMap = {
+            null: 'asc',
+            asc: 'desc',
+            desc: null,
+          };
+
+        this.serialize(body)
+        this.orderById()
+    }
+    
+    serialize(data){
+        for (let item in data){
+            let entry = {common: {}, service: {}}
+            for (let field in this.thead){
+                entry.common[field] = data[item][field]
+            }
+            entry.service.id = data[item].id
+            this.tbody.push(entry)    
+        }
+    }
+    orderById(){
+        this.tbody = _.orderBy(this.tbody, ['service.id'], ['desc'])
+    }
+    setSort(sortField){
+        let tempSort = this.sortMap[this.thead[sortField].sort]
+        for( let field in this.thead){
+            this.thead[field].sort = null 
+        }
+        this.thead[sortField].sort = tempSort
+        if (tempSort != null){
+            this.tbody = _.orderBy(this.tbody, [`common.${sortField}`], [tempSort])
+        }
+        else{
+            this.orderById()
+        }
     }
 }
