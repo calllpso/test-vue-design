@@ -2,22 +2,21 @@
 import InputCard from '@components/InputCard.vue'
 import GridCard from '@components/GridCard.vue'
 import {ref} from 'vue'
-import {Employee} from '@classes/base'
+import {EmployeeForm} from '@classes/base'
 
-const employee = new Employee();
+const employeeForm = new EmployeeForm();
 const out = ref(null)
 
 function get_callback(){
-    out.value = employee.apiJsonTransform()
+    out.value = employeeForm.apiJsonTransform()
 }
 
 </script>
 
 <template>
-    create
     {{ out }}
     <GridCard>
-        <InputCard :dataFields="employee"
+        <InputCard :dataFields="employeeForm"
         :btnApplyName="'Сохранить'"
         @callback="get_callback()"
         ></InputCard>

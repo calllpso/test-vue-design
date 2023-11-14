@@ -52,7 +52,7 @@ function delRow(index){
                 <tr >
                     <td class="card-form__col-name"> {{ item.name }} </td>
                     <td colspan="2">
-                        <InputText v-if="item.type=='input'" placeholder="value" :value="item.value" @callback="(val) => item.value = val"/>
+                        <InputText v-if="item.type=='input'" placeholder="значение" :value="item.value" @callback="(val) => item.value = val"/>
                         <audio v-else-if="item.type=='audio'" class="audio" controls src="" type="audio/mpeg"></audio>
                     </td>
                 </tr>
@@ -63,7 +63,7 @@ function delRow(index){
                 <tr>
                     <td class="card-form__col-name"> {{ item.name }} </td>
                     <td v-if="item.type=='input'">
-                        <InputText placeholder="value" :value="item.value" @callback="(val) => item.value = val"/>
+                        <InputText placeholder="значение" :value="item.value" @callback="(val) => item.value = val"/>
                     </td>
                     <td v-if="item.children">
                         <div class="card-form__flex-container">
@@ -124,16 +124,11 @@ function delRow(index){
 .card-form
     display: flex
     justify-content: center
-    // background: #CBCBCB
     background: #ebebeb
     min-width: max-content 
     height: max-content
-    // border-radius: .5rem   
     padding: .5rem 2rem .5rem 1rem
-    // padding: .5rem 
-
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25)
-    
     transition: flex-wrap 0.5s ease
     .card-form__table
         table-layout: auto 

@@ -1,17 +1,19 @@
 import {ref, toRaw} from 'vue'
 import _ from 'lodash';
 
-export class Employee {
+
+// forms
+export class EmployeeForm {
     constructor() {
-        this.head = ref({ text: 'Сотрудник' });
-        this.single = ref({
+        this.head = { text: 'Сотрудник' }
+        this.single = {
             surname:    { id: '', type: 'input', name: 'Фамилия', value: '' },
             name:       { id: '', type: 'input', name: 'Имя', value: '' },
             lastname:   { id: '', type: 'input', name: 'Отчество', value: '' },
             position:   { id: '', type: 'input', name: 'Должность', value: '' },
             division:   { id: '', type: 'input', name: 'Подразделение', value: '' },
-        });
-        this.multiple = ref([
+        }
+        this.multiple = [
             {
                 id: '',
                 type: 'input',
@@ -19,8 +21,8 @@ export class Employee {
                 value: '1',
                 children: {
                     values: {
-                        sms: { type: 'slider', name: 'Sms', value: false },
-                        voice: { type: 'slider', name: 'Voice', value: false },
+                        sms: { type: 'slider', name: 'СМС', value: false },
+                        voice: { type: 'slider', name: 'Звонок', value: false },
                     },
                     other: [
                         { type: 'icon', icon: 'drag' },
@@ -28,7 +30,7 @@ export class Employee {
                     ],
                 },
             },
-        ]);
+        ];
         this.apiJson={single: {}, multiple: []}
     }
     bitView(sms, voice){
@@ -38,19 +40,18 @@ export class Employee {
 
     apiJsonTransform(){
         this.apiJson={single: {}, multiple: []}
-        for(let key in this.single.value)
+        for(let key in this.single)
             {
-                this.apiJson.single[key] = this.single.value[key].value
-                // this.apiJson.single.push({[key]: this.single.value[key].value})
+                this.apiJson.single[key] = this.single[key].value
             } 
-        for(let key in this.multiple.value)
+        for(let key in this.multiple)
             {
                 this.apiJson.multiple.push({
                     priority: key,
-                    number: this.multiple.value[key].value,
+                    number: this.multiple[key].value,
                     status: this.bitView(
-                        this.multiple.value[key].children.values.sms.value,
-                        this.multiple.value[key].children.values.voice.value
+                        this.multiple[key].children.values.sms.value,
+                        this.multiple[key].children.values.voice.value
                     )
                 })
             } 
@@ -60,46 +61,46 @@ export class Employee {
 
 
 
-export class Audio {
+export class AudioForm {
     constructor() {
-        this.head = ref({ text: 'Аудио' });
-        this.single = ref({
+        this.head = { text: 'Аудио' }
+        this.single = {
             fileName: { id: '', type: 'input', name: 'fileName', value: '' },
             audio: { id: '', type: 'input', name: 'Audio', value: '' },
-        })
+        }
         this.apiJson={single: {}}
     }
 
     apiJsonTransform(){
         this.apiJson={single: {}}
-        for(let key in this.single.value)
+        for(let key in this.single)
             {
-                this.apiJson.single[key] = this.single.value[key].value
+                this.apiJson.single[key] = this.single[key].value
             } 
         return this.apiJson
     }
 }
 
 
-export class List {
+export class ListForm {
     constructor() {
-        this.head = ref({ text: 'Список' });
-        this.single = ref({
+        this.head = { text: 'Список' };
+        this.single = {
             fileName:       { id: '', type: 'input', name: 'NameList',       value: '', }, 
             status:         { id: '', type: 'input', name: 'Status',         value: '', },
             name:           { id: '', type: 'input', name: 'Audio name',     value: '', },
             audio:          { id: '', type: 'audio', name: 'Audio',          value: '', },
             configuration:  { id: '', type: 'input', name: 'Configuration',  value: '', },
-        })
+        }
         this.message = null
         this.apiJson={single: {}}
     }
 
     apiJsonTransform(){
         this.apiJson={single: {}}
-        for(let key in this.single.value)
+        for(let key in this.single)
             {
-                this.apiJson.single[key] = this.single.value[key].value
+                this.apiJson.single[key] = this.single[key].value
             } 
         this.apiJson.single.message = this.message
         return this.apiJson
@@ -108,39 +109,7 @@ export class List {
 
 
 
-
-// export class EmployeeTable {
-//     constructor(body) {
-//         this.thead = ref({ 
-//             surname:  'Фамилия',          
-//             name:     'Имя',      
-//             lastname: 'Отчество',          
-//             division: 'Подразделение',          
-//             position: 'Должность',          
-//             phone:    'Телефон',      
-//             actions:  'actions',          
-//         });
-//         this.tbody = ref([])
-//         this.service = ref({
-//             sort: {
-//                 field: '', orderBy: null
-//             } 
-//         })
-//         this.serialize(body)
-//     }
-
-//     serialize(data){
-//         for (let item in data){
-//             let entry = {common: {}, service: {}}
-//             for (let field in this.thead.value){
-//                 entry.common[field] = data[item][field]
-//             }
-//             entry.service.id = data[item].id
-//             this.tbody.value.push(entry)    
-//         }
-//     }
-// }
-
+// tables
 export class EmployeeTable {
     constructor(body) {
         this.thead = { 
@@ -152,12 +121,16 @@ export class EmployeeTable {
             phone:    {value:   'Телефон'      , sort: null        }               ,      
             actions:  {value:   'actions'      , sort: null        }               ,          
         }
+        this.tbodyConst = []
         this.tbody = []
         this.service = {
             sort: {
                 field: '', orderBy: 0
             } 
         }
+        this.firstPageEntry=0
+        this.lastPageEntry=0
+
         this.sortMap = {
             null: 'asc',
             asc: 'desc',
@@ -167,7 +140,6 @@ export class EmployeeTable {
         this.serialize(body)
         this.orderById()
     }
-    
     serialize(data){
         for (let item in data){
             let entry = {common: {}, service: {}}
@@ -177,6 +149,7 @@ export class EmployeeTable {
             entry.service.id = data[item].id
             this.tbody.push(entry)    
         }
+        this.tbodyConst = this.tbody
     }
     orderById(){
         this.tbody = _.orderBy(this.tbody, ['service.id'], ['desc'])
@@ -193,5 +166,16 @@ export class EmployeeTable {
         else{
             this.orderById()
         }
+    }
+    search(searchText){
+        this.tbody = _.filter(this.tbodyConst, (user) => {
+            return _.some(user.common, (value) => {
+              return String(value).toLowerCase().includes(searchText.toLowerCase());
+            });
+          });
+    }
+    // pagination
+    setLastPageEntry(){
+        this.lastPageEntry = this.tbody.common.length
     }
 }

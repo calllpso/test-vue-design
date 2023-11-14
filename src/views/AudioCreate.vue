@@ -2,13 +2,13 @@
 import InputCard from '@components/InputCard.vue'
 import GridCard from '@components/GridCard.vue'
 import {ref} from 'vue'
-import {Audio} from '@classes/base'
+import {AudioForm} from '@classes/base'
 
-const audio = new Audio();
+const audioForm = new AudioForm()
 const out = ref(null)
 
 function get_callback(){
-    out.value = audio.apiJsonTransform()
+    out.value = audioForm.apiJsonTransform()
 }
 
 </script>
@@ -17,7 +17,7 @@ function get_callback(){
 <template>
     {{ out}}
     <GridCard>
-        <InputCard :dataFields="audio"
+        <InputCard :dataFields="audioForm"
         :btnApplyName="'Сохранить'"
         @callback="get_callback()"
         ></InputCard>

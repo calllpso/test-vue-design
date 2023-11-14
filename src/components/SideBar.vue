@@ -1,6 +1,7 @@
 
 <template>
-    <aside id="sidebar" class="sidebar" :expand="pinSideBar" @mouseleave="handleMouseLeave" @mouseenter="handleMouseEnter" >
+    <aside class="sidebar-shadow" :expand="pinSideBar"></aside>
+    <aside ref="sidebar" class="sidebar" :expand="pinSideBar" @mouseleave="handleMouseLeave" @mouseenter="handleMouseEnter" >
         <div class="sidebar__header">
                 <Svg class="sidebar__logo-icon" name="phone" @click="routerPush('/')"> </Svg> 
                 <span class="sidebar__logo-text"> PereZvonar </span>
@@ -13,11 +14,11 @@
         </div>
 
         <ul class="sidebar__nav sidebar__nav_position_up">
-            <SideBarNav :collapsedSideBar="collapsedSideBar" :menus="menuUp"/>
+            <SideBarNav :collapsedSideBar="collapsedSideBar" :pinSideBar="pinSideBar" :menus="menuUp"/>
         </ul>
 
         <ul class="sidebar__nav sidebar__nav_position_down">
-            <SideBarNav :collapsedSideBar="collapsedSideBar" :menus="menuDown"/>
+            <SideBarNav :collapsedSideBar="collapsedSideBar" :pinSideBar="pinSideBar" :menus="menuDown"/>
         </ul>
 
         
@@ -32,7 +33,7 @@ import SideBarNav from '@components/SideBarNav.vue'
 import Svg from '@components/Svg.vue';
 import {routerPush} from '@router/functions'
 
-
+const sidebar = ref(null)
 
 const pinSideBar = ref(false)
 const collapsedSideBar = ref(null)
@@ -51,6 +52,7 @@ const handleMouseEnter = () => {
 
 function togglePinSideBar(){
     pinSideBar.value = !pinSideBar.value
+    console.log(sidebar.value)
 }
 
 
@@ -92,6 +94,13 @@ const menuDown = ref([
 ])
 
 
+
+// onMounted(()=>{
+//     console.log(sidebar.value)
+
+
+// })
+
 </script>
 
 
@@ -99,9 +108,18 @@ const menuDown = ref([
 
 <style lang="sass" scoped>
 @import '@assets/main'
+// 
+.sidebar-shadow
+    width: $width--sidebar_expand_false
+    &[expand=true]
+        width: $width--sidebar_expand_true
+    // height: 10px
 // sidebar
 .sidebar
     // type
+    position: fixed
+    // position: relative
+    z-index: 999
     container-type: inline-size
     display: flex
     flex-direction: column
@@ -113,6 +131,8 @@ const menuDown = ref([
         width: $width--sidebar_expand_true
     &[expand=true]
         width: $width--sidebar_expand_true
+        // position: relative
+        position: fixed
 
     // common
     

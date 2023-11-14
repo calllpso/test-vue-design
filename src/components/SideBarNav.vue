@@ -8,9 +8,11 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    collapsedSideBar: Boolean
+    collapsedSideBar: Boolean,
+    pinSideBar: Boolean,
 })
 
+// может быть избыточно, но так submenu закрываются даже если пользователь быстро уберет курсор
 watch(
     () => props.collapsedSideBar,
     (stateExpand) => {
@@ -26,15 +28,33 @@ watch(
             })
         }
     }
-    )
+)
+watch(
+    () => props.pinSideBar,
+    (pinState) => {
+        if(!pinState){
+            console.log(pinState)
+            // свернуть если не нажат pin и нет hover
+            const filteredArray = props.menus.filter(obj => obj.hasOwnProperty('children'));
+            filteredArray.forEach((item)=>{
+                let target = document.getElementById(item.id)
+                let expanded = JSON.parse(target.nextElementSibling.getAttribute('visible'))
+                if(expanded){
+                    toggleSubmenu(target)
+                }
+            })
+        }
+    }
+)
 
 
 
-const maxHeightTransition_js = ref(300)
-const maxHeightTransition_css = maxHeightTransition_js.value/1000 + 's'
+const maxHeightTransition_js = 300
+const maxHeightTransition_css = maxHeightTransition_js/1000 + 's'
 
 
-async function toggleSubmenu(target){
+// async function toggleSubmenu(target){
+function toggleSubmenu(target){
     let submenu = target.nextElementSibling
     let currentAttr = JSON.parse(submenu.getAttribute('visible'))
     submenu.setAttribute('visible', !currentAttr)   //submenu expand
@@ -47,7 +67,8 @@ async function toggleSubmenu(target){
     // // for smooth height animation of submenu 
     if (!currentAttr){
         submenu.style.maxHeight = contentHeight + 1 + 'px'
-        await new Promise(resolve => setTimeout(resolve, maxHeightTransition_js.value))  // await max-size transition
+        // await new Promise(resolve => setTimeout(resolve, maxHeightTransition_js.value))  // await max-size transition
+        new Promise(resolve => setTimeout(resolve, maxHeightTransition_js))  // await max-size transition
         submenu.scrollIntoView({ block: "center", behavior: "smooth" })     // scroll submenu to center
     }
     else{
@@ -62,8 +83,9 @@ async function toggleSubmenu(target){
     <template v-for="item in menus">
             <!-- если есть дети, то добавить класс sidebar__wrap-submenu  -->
             <li  :class="{ 'sidebar__wrap-submenu': item.hasOwnProperty('children') }"> 
-                <!-- <router-link to="/" class="text-item" v-if="item.hasOwnProperty('route')"> -->
-                <p :id="item.id" class="sidebar__row sidebar__row_maj" @click="item.hasOwnProperty('children') ? toggleSubmenu($event.currentTarget) : routerPush(item.route)">
+                <p :id="item.id" class="sidebar__row sidebar__row_maj" 
+                @click="item.hasOwnProperty('children') ? toggleSubmenu($event.currentTarget) : routerPush(item.route)"
+                >
                     <p class="sidebar__row-content_maj">
                             <span class="sidebar__1-col"> 
                                 <template v-if="item.col1 != null">

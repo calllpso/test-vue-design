@@ -10,21 +10,9 @@ const __filename = fileURLToPath(import.meta.url);
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(
-      {   //указывать пользовательские компоненты при наличии шага сборки
-      template: {
-        compilerOptions: {
-          isCustomElement: tag => tag === 'btn'
-        }
-      }
-    }
-    ),
+    vue(),
     svgLoader({  ////svg
-      svgoConfig: {
-
-        //
-      }
-
+      svgoConfig: {}
     }) 
   ],
   resolve: {

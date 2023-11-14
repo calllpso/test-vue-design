@@ -3,8 +3,7 @@ import GridArea from '@components/GridArea.vue'
 import SideBar from '@components/SideBar.vue'
 import TopBar from '@components/TopBar.vue'
 import BottomBar from '@components/BottomBar.vue'
-import {shallowRef} from 'vue';
-import { defineAsyncComponent } from 'vue';
+import { shallowRef, defineAsyncComponent } from 'vue';
 import { isDoubleChildRoute} from '@router/functions'
 
 const topBar__title = shallowRef(null)

@@ -37,7 +37,7 @@ bg_a, bg_b, bg_c,bg_d - фон областей сетки
                 <div class="area-grid__b"> 
                     <slot name="b">    </slot> 
                 </div>
-                <div class="area-grid__c"> 
+                <div class="area-grid__c" id="content"> 
                     <slot name="c">    </slot> 
                 </div>
                 <div class="area-grid__d"> 
@@ -89,8 +89,8 @@ bg_a, bg_b, bg_c,bg_d - фон областей сетки
                 grid-area: c
                 background: $bg_c
                 max-height: calc(100vh - 4rem)
-                // max-width: 100vh
                 overflow: auto
+                // overflow: hidden
             
             & .area-grid__d
                 grid-area: d
