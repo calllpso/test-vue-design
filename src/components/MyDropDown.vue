@@ -1,171 +1,143 @@
 <script setup>
 import { ref, watch, onMounted  } from 'vue';
 import { createPopper } from '@popperjs/core'
-import Svg from '@components/Svg.vue';
+
 
 const button = ref(null)
 const tooltip = ref(null)
 const popperInstance = ref(null)
-const popperContainer = ref(null)
-const overlayElement = ref(null)
+const list = ref(null)
+const listwrap = ref(null)
+const listHeight = ref(null)
+const liwrap = ref(null)
 
-const dropMenuWrap = ref(null)
-const visible = ref(false)
+const isVisible = ref(false)
 
 let listItems = [10, 25, 50 , 100, 'all']
 
-const currentValue = ref(listItems[0])
-
-// popper show
 function show() {
-        tooltip.value.setAttribute('data-show', '')
-
-        popperInstance.value.setOptions((options) => ({
-            ...options,
-            modifiers: [
-            ...options.modifiers,
-            { name: 'eventListeners', enabled: true },
-            ],
-        }))
-        popperInstance.value.update()
-        createOverlay()
-        tooltip.value.style.height = dropMenuWrap.value.getBoundingClientRect().height + 'px' 
-    }
-// popper hide
-function hide() {
-    visible.value = false
-    tooltip.value.style.height = '0px'
+  
+    // Make the tooltip visible
+    tooltip.value.setAttribute('data-show', '');
+  
+    // Enable the event listeners
     popperInstance.value.setOptions((options) => ({
-        ...options,
-        modifiers: [
+      ...options,
+      modifiers: [
         ...options.modifiers,
-        { name: 'eventListeners', enabled: false },
-        ],
-    }))
-}
-
-
-// create overlay
-function createOverlay() {
-    overlayElement.value = document.createElement('div');
-    overlayElement.value.classList.add('overlay');
-    overlayElement.value.appendChild(tooltip.value)
-    document.getElementById('content').appendChild(overlayElement.value);
+        { name: 'eventListeners', enabled: true },
+      ],
+    }));
+    popperInstance.value.update()
     
-    // destroy overlay
-    overlayElement.value.addEventListener('click', async function(e){ 
-        if(e.target == e.currentTarget){
-            hide()
-            await new Promise(resolve => setTimeout(resolve, 200))  // await max-size transition
-            popperContainer.value.appendChild(tooltip.value)
-            overlayElement.value.remove()
-        }
-    });
+    list.value.style.opacity = '1'
+    
+    liwrap.value.style.height = listHeight.value
+    // for down-up transition when placement top
+    list.value.style.height = listHeight.value
 }
 
 
-const toggleDropdown = () => {
-    visible.value = !visible.value
-    visible.value ? show() : hide()
+
+function hide() {
+        liwrap.value.style.height = '0px'
+
+
+        list.value.style.opacity = '0'
+        // Hide the tooltip
+        tooltip.value.removeAttribute('data-show');
+        // Disable the event listeners
+        popperInstance.value.setOptions((options) => ({
+          ...options,
+          modifiers: [
+            ...options.modifiers,
+            { name: 'eventListeners', enabled: false },
+          ],
+        }));
+
 }
 
+function toggleVisible(){
+  isVisible.value = !isVisible.value
+  isVisible.value ? show() : hide()
+}
 
 onMounted(()=>{
     popperInstance.value = createPopper(button.value, tooltip.value, {
         placement: 'bottom',
-    })
+    }); 
+    // get listHeight
+    tooltip.value.setAttribute('data-show', '');
+    listHeight.value = list.value.getBoundingClientRect().height + 'px' 
+    tooltip.value.removeAttribute('data-show');
+    console.log(listHeight.value) 
+    
+    // set listHeight 0px and fix listwrap  for correct popper placement
+    liwrap.value.style.height = '0px'
+    listwrap.value.style.height = listHeight.value
 })
 
-async function selectItem(item){
-    currentValue.value = item
-    hide()
-    await new Promise(resolve => setTimeout(resolve, 200))  // await max-size transition
-    popperContainer.value.appendChild(tooltip.value)
-    overlayElement.value.remove()
-}
 
 
-const emits = defineEmits(['callback'])
-watch(
-    () => currentValue.value,
-    (newValue) => {
-        emits('callback', newValue)
-        console.log(newValue)
-    }
-)
 </script>
 
 <template>
+    <button class="popper-btn" ref="button" aria-describedby="tooltip" @click="toggleVisible" >My button</button>
 
-
-<div ref="popperContainer" class="popperContainer">
-    <div ref="button" class="popper-btn"  :visible="visible" @click="toggleDropdown">
-        <span> {{currentValue}} </span>
-        <Svg  class="drop-menu__icon" name="chevron-down" :opened="visible"></Svg> 
-    </div>
-    <div ref="tooltip" class="tooltip">
-        <ul class="drop-menu__list">
-            <div ref="dropMenuWrap">
-                <template v-for="item in listItems">
-                    <li @click="selectItem(item)"> {{ item }} </li>
-                </template>
-            </div>
+    <div ref="tooltip" class="tooltip"> 
+      <div ref="listwrap" class="listwrap">
+        <ul ref="list" id="list" class="list">
+          <div ref="liwrap" class = "liwrap">
+            <template v-for="item in listItems">
+              <li> {{ item }} </li>
+            </template>
+          </div>
         </ul>
+      </div>
     </div>
-</div>
+ 
 </template>
 
 
-<style lang="sass">
-.overlay
-    position: fixed
-    z-index: 999
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
 
-.popper-btn
-    background: white
-    height: 100%
-    cursor: pointer
-    display: flex
-    align-items: center
-    width: 3.5rem
+<style lang="sass" scoped>
+.liwrap
+  height: max-content
+  width: 5rem
+  transition: height .15s
+  overflow-y: hidden 
+  background: #cbe0ff
+  box-sizing: border-box
+  padding: 0.25rem 0
+  li
     padding-left: .5rem
+    height: 1.5rem
+    &:hover
+      background: #aecef2
 
-    .drop-menu__icon
-        margin-left: auto
-        width: 1.75rem
-        transition: transform .2s
-        transform: rotate(0deg)
-        &[opened=true]
-            transform: rotate(-180deg)
 
-.popperContainer
-    height: 100%
-    user-select: none
+.list
 
+    opacity: 0
+    transition: opacity .15s
 .tooltip 
-    background: #fff
+    width: 5rem
     display: none
-    z-index: 100
-    
-    transition: height .2s
-    height: 0px
-    overflow: hidden
+    cursor: pointer
 
     &[data-show] 
         display: block
-    
-    .drop-menu__list 
-        width: 4rem
-        cursor: pointer
-        user-select: none
-        li
-            padding-left: .5rem
-            &:hover
-                background: #bebebe
 
+    &[data-popper-placement^='top']
+
+      // for down->up height transition when placement top
+      .list
+        display: flex
+        align-items: end
+
+.popper-btn
+  width: 5rem
+  padding: 0
+    
 
 </style>

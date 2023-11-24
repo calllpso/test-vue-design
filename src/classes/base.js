@@ -128,8 +128,8 @@ export class EmployeeTable {
                 field: '', orderBy: 0
             } 
         }
-        this.firstPageEntry=0
-        this.lastPageEntry=0
+        // this.firstPageEntry=0
+        // this.lastPageEntry=0
 
         this.sortMap = {
             null: 'asc',
@@ -152,7 +152,7 @@ export class EmployeeTable {
         this.tbodyConst = this.tbody
     }
     orderById(){
-        this.tbody = _.orderBy(this.tbody, ['service.id'], ['desc'])
+        this.tbody = _.orderBy(this.tbody, ['service.id'], ['asc'])
     }
     setSort(sortField){
         let tempSort = this.sortMap[this.thead[sortField].sort]
@@ -175,7 +175,7 @@ export class EmployeeTable {
           });
     }
     // pagination
-    setLastPageEntry(){
-        this.lastPageEntry = this.tbody.common.length
-    }
+    // setLastPageEntry(){
+    //     this.lastPageEntry = this.tbody.common.length
+    // }
 }

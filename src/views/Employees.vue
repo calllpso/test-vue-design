@@ -18,804 +18,91 @@ emits('callback_topBar__title', 'Сотрудники' )
 emits('callback_topBar__functionalButton', myComponent )
 
 
-let indata = [
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    }, {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    }, {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    }, {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    }, {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         1,
-        surname:   '1' , 
-        name:      'name' , 
-        lastname:  'А' , 
-        division:  'B' , 
-        position:  'Д' , 
-        phone:     'hone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         4,
-        surname:   '3' , 
-        name:      'name' , 
-        lastname:  'Б' , 
-        division:  'A' , 
-        position:  'д' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-    {
-        id:         2,
-        surname:   '2' , 
-        name:      'name' , 
-        lastname:  'В' , 
-        division:  'C' , 
-        position:  'D' , 
-        phone:     'phone' , 
-        actions:   'actions' 
-    },
-]
+let indata = []
+// set InData
+for(let id=1; id < 50; id++){
+    console.log('attempt')
+    let list = 
+    [
+        {
+            "id": id++,
+            "surname": "Smith",
+            "name": "John",
+            "lastname": "Doe",
+            "division": "Engineering",
+            "position": "Software Developer",
+            "phone": "123-456-7890",
+            "actions": "Edit/Delete"
+        },
+        {
+            "id": id++,
+            "surname": "Johnson",
+            "name": "Alice",
+            "lastname": "Smith",
+            "division": "Marketing",
+            "position": "Marketing Specialist",
+            "phone": "987-654-3210",
+            "actions": "Edit/Delete"
+        },
+        {
+            "id": id++,
+            "surname": "Brown",
+            "name": "Michael",
+            "lastname": "Jones",
+            "division": "Sales",
+            "position": "Sales Manager",
+            "phone": "555-123-4567",
+            "actions": "Edit/Delete"
+        },
+        {
+            "id": id++,
+            "surname": "Davis",
+            "name": "Emily",
+            "lastname": "Miller",
+            "division": "Human Resources",
+            "position": "HR Specialist",
+            "phone": "111-222-3333",
+            "actions": "Edit/Delete"
+        },
+        {
+            "id": id++,
+            "surname": "Wilson",
+            "name": "Christopher",
+            "lastname": "Taylor",
+            "division": "Finance",
+            "position": "Financial Analyst",
+            "phone": "777-888-9999",
+            "actions": "Edit/Delete"
+        },
+        {
+            "id": id++,
+            "surname": "Moore",
+            "name": "Olivia",
+            "lastname": "Hill",
+            "division": "Customer Support",
+            "position": "Customer Support Representative",
+            "phone": "444-555-6666",
+            "actions": "Edit/Delete"
+        },
+        {
+            "id": id++,
+            "surname": "Anderson",
+            "name": "William",
+            "lastname": "Martin",
+            "division": "Research and Development",
+            "position": "Research Scientist",
+            "phone": "999-000-1111",
+            "actions": "Edit/Delete"
+        },
+    ]
+    indata = indata.concat(list)
+}
+console.log(indata)
+
+
+
+
+
 const employeeTable = ref(new EmployeeTable(indata))
 
 </script>
@@ -823,12 +110,17 @@ const employeeTable = ref(new EmployeeTable(indata))
 <template>
 
     <template v-if="!isDoubleChildRoute()">
+        <!-- <div class="test">
+        </div> -->
+        <!-- <div class="test1">
+            <MyDropDown></MyDropDown>
+        </div> -->
         <div class="custom">
             <MyTable :data="employeeTable"/>
         </div>
-        <!-- <div class="test">
-        </div> -->
-
+        <div class="custom">
+            <MyTable :data="employeeTable"/>
+        </div>
 
       
 
@@ -838,12 +130,19 @@ const employeeTable = ref(new EmployeeTable(indata))
 
 <style lang="sass" scoped>
 .test
-    padding: 5rem
+    height: 50%
+    box-sizing: border-box
+    // padding: 5rem
+.test1
+    max-height: 10%
+    padding-top: 2rem
+    box-sizing: border-box
 .custom
     box-sizing: border-box
     padding: 1rem
     width: 100%
     display: flex
     height: 50%
+    // height: max-content
     // height: 20rem
 </style>
