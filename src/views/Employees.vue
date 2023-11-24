@@ -113,8 +113,8 @@ const employeeTable = ref(new EmployeeTable(indata))
         <!-- <div class="test">
         </div> -->
         <!-- <div class="test1">
-            <MyDropDown></MyDropDown>
         </div> -->
+        <MyDropDown></MyDropDown>
         <div class="custom">
             <MyTable :data="employeeTable"/>
         </div>

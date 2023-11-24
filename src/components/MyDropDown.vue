@@ -1,8 +1,9 @@
 <script setup>
 import { ref, watch, onMounted  } from 'vue';
 import { createPopper } from '@popperjs/core'
+import Svg from '@components/Svg.vue';
 
-
+// HTML Elements
 const button = ref(null)
 const tooltip = ref(null)
 const popperInstance = ref(null)
@@ -11,15 +12,29 @@ const listwrap = ref(null)
 const listHeight = ref(null)
 const liwrap = ref(null)
 
+// Parameters
 const isVisible = ref(false)
-
 let listItems = [10, 25, 50 , 100, 'all']
+const currentValue = ref(listItems[0])
 
-function show() {
-  
+
+
+async function selectItem(item){
+    toggleVisible()
+    
+    // await new Promise(resolve => setTimeout(resolve, 200))  // await max-size transition
+    // popperContainer.value.appendChild(tooltip.value)
+    // overlayElement.value.remove()
+    currentValue.value = item
+}
+
+
+
+
+// ***          Popper           *** \\
+function show() {  
     // Make the tooltip visible
     tooltip.value.setAttribute('data-show', '');
-  
     // Enable the event listeners
     popperInstance.value.setOptions((options) => ({
       ...options,
@@ -31,20 +46,17 @@ function show() {
     popperInstance.value.update()
     
     list.value.style.opacity = '1'
-    
     liwrap.value.style.height = listHeight.value
     // for down-up transition when placement top
     list.value.style.height = listHeight.value
 }
 
-
-
+// async function hide() {
 function hide() {
         liwrap.value.style.height = '0px'
-
-
         list.value.style.opacity = '0'
-        // Hide the tooltip
+
+    setTimeout(() => {
         tooltip.value.removeAttribute('data-show');
         // Disable the event listeners
         popperInstance.value.setOptions((options) => ({
@@ -54,13 +66,15 @@ function hide() {
             { name: 'eventListeners', enabled: false },
           ],
         }));
+      }, 200)
 
 }
-
 function toggleVisible(){
   isVisible.value = !isVisible.value
   isVisible.value ? show() : hide()
 }
+
+//\\ ***          Popper           *** //\\
 
 onMounted(()=>{
     popperInstance.value = createPopper(button.value, tooltip.value, {
@@ -82,14 +96,20 @@ onMounted(()=>{
 </script>
 
 <template>
-    <button class="popper-btn" ref="button" aria-describedby="tooltip" @click="toggleVisible" >My button</button>
+    <!-- <button class="popper-btn" ref="button" aria-describedby="tooltip" @click="toggleVisible"  >My button</button> -->
 
+    <div ref="button" class="popper-btn" @click="toggleVisible">
+      
+      <span> {{currentValue}}   </span>
+      <Svg  class="drop-menu__icon" name="chevron-down" :opened="isVisible"></Svg> 
+    </div>
+    
     <div ref="tooltip" class="tooltip"> 
       <div ref="listwrap" class="listwrap">
         <ul ref="list" id="list" class="list">
           <div ref="liwrap" class = "liwrap">
             <template v-for="item in listItems">
-              <li> {{ item }} </li>
+              <li @click="selectItem(item)"> {{ item }} </li>
             </template>
           </div>
         </ul>
@@ -101,10 +121,11 @@ onMounted(()=>{
 
 
 <style lang="sass" scoped>
+
 .liwrap
   height: max-content
   width: 5rem
-  transition: height .15s
+  transition: height .2s ease
   overflow-y: hidden 
   background: #cbe0ff
   box-sizing: border-box
@@ -119,7 +140,7 @@ onMounted(()=>{
 .list
 
     opacity: 0
-    transition: opacity .15s
+    transition: opacity .4s
 .tooltip 
     width: 5rem
     display: none
@@ -136,8 +157,26 @@ onMounted(()=>{
         align-items: end
 
 .popper-btn
+  cursor: pointer
   width: 5rem
   padding: 0
+
+  border: 1px solid
+  border-color: #b0b0b0
+  background: #ccdde9
+  box-sizing: border-box
+  padding-left: .5rem
+  display: flex
+  align-items: center
+  &:hover
+    background: #a5c5dc 
     
+.drop-menu__icon
+    margin-left: auto
+    width: 1.75rem
+    transition: transform .2s
+    transform: rotate(0deg)
+    &[opened=true]
+        transform: rotate(-180deg)
 
 </style>
