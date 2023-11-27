@@ -21,7 +21,6 @@ emits('callback_topBar__functionalButton', myComponent )
 let indata = []
 // set InData
 for(let id=1; id < 50; id++){
-    console.log('attempt')
     let list = 
     [
         {
@@ -97,7 +96,7 @@ for(let id=1; id < 50; id++){
     ]
     indata = indata.concat(list)
 }
-console.log(indata)
+// console.log(indata)
 
 
 
@@ -110,11 +109,6 @@ const employeeTable = ref(new EmployeeTable(indata))
 <template>
 
     <template v-if="!isDoubleChildRoute()">
-        <!-- <div class="test">
-        </div> -->
-        <!-- <div class="test1">
-        </div> -->
-        <MyDropDown></MyDropDown>
         <div class="custom">
             <MyTable :data="employeeTable"/>
         </div>

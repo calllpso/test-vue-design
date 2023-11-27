@@ -1,6 +1,5 @@
 <script setup>
 import Svg from '@components/Svg.vue';
-import InputText from '@components/InputText.vue';
 import MyDropDown from '@components/MyDropDown.vue';
 import {ref, computed} from 'vue'
 
@@ -22,11 +21,22 @@ const totalPages = computed(() => {
 const minRow = computed(() => { return (currentPage.value - 1)*itemsPerPage.value })
 const maxRow = computed(() => { return (minRow.value + itemsPerPage.value) })
 
+const visibleRows = computed(() => { 
+    // console.log('comp')
+    // console.log(props.data.tbody.slice(minRow.value, maxRow.value))
+    return props.data.tbody.slice(minRow.value, maxRow.value ) 
+})
+
 const tableRef = ref(null)
 
 
+function setItemPerPage(items){
+    itemsPerPage.value = typeof(items) == 'number' ? items : props.data.tbody.length
+}
+
+
 function changePage(val){
-    console.log(tableRef.value)
+    // console.log(tableRef.value)
     tableRef.value.scrollTop = 0
 
     if (typeof val === 'number') {
@@ -36,54 +46,39 @@ function changePage(val){
         currentPage.value = (val === 'start') ? 1 : totalPages.value;
     }
 }
-
-function setItemPerPage(items){
-    itemsPerPage.value = typeof(items) == 'number' ? items : props.data.tbody.length
-}
 </script>
 
 <template>
-        <div class="custom-table">
-        
-
-        <header class="header">
-            <InputText class="header__input"
-            placeholder = "Быстрый поиск"  
-            @callback="(val) => data.search(val)"
-            postIcon="magnify"
-            />
-        </header>
-        
+    <!-- {{ data.tbody }} -->
+    <!-- {{ visibleRows.length }}
+    {{ data.tbody.length }}
+    {{ minRow }}
+    {{ maxRow }} -->
+    <!-- {{ visibleRows }} -->
+    <div class="custom-table">
         <main class="main" ref="tableRef">
             <table>
                 <thead>
                     <tr>
-                        <template v-for="(head, key) in data.thead">
-                            <th class="main__th" @click="data.setSort(key)">
-                                <div class="th__content" >
-                                    <span> {{ head.value }} </span>
-                                    
-                                    <Svg class="th__icon" 
-                                    :class="{
-                                        visible: head.sort !=null, 
-                                        rotate: head.sort == 'desc'
-                                    }"
-                                    :name ="'arrow-up'" ></Svg>
-                                </div>
-                            </th>
+                        <template v-for="(head, index) in data.thead">
+                            <th> {{ head.value }} </th>
                         </template>
+                        <!-- <template v-for="(head, index) in data.thead">
+                            <th> {{ head.value }} </th>
+                        </template> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <template v-for="(row, index) in data.tbody">
-                        <template v-if="(index < maxRow) && (index >= minRow)">
+                    <!-- <template v-for="(row, index) in data.tbody"> -->
+                    <template v-for="(row, index) in visibleRows">
+                        <!-- <template v-if="(index < maxRow) && (index >= minRow)"> -->
 
-                            <tr :id="`${row.service.id}row`">
-                                <template v-for="field in row.common">
+                            <tr>
+                                <template v-for="(field, fIndex) in row.common">
                                     <td> {{field}} </td>
                                 </template>
                             </tr>
-                        </template>
+                        <!-- </template> -->
                     </template>
                 
                 </tbody>
@@ -94,7 +89,8 @@ function setItemPerPage(items){
             <div class="pagination">
 
                 <span class="pagination__text">  items per page: </span>
-                <MyDropDown @callback="(val) => setItemPerPage(val)"></MyDropDown>
+                <!-- <MyDropDown @callback="(val) => setItemPerPage(val)"></MyDropDown> -->
+                <MyDropDown></MyDropDown>
                 <span class="pagination__text"> page: {{ currentPage }} of {{totalPages}} </span>
                 <Svg class="icon" name="page-first"  @click="changePage('start')"></Svg>
                 <Svg class="icon" name="chevron-left" @click="changePage(-1)"></Svg>
@@ -105,38 +101,29 @@ function setItemPerPage(items){
 
             </div>
         </footer>
+        <!-- <MyDropDown></MyDropDown> -->
     </div>
-
+    <!-- <MyDropDown @callback="(val) => setItemPerPage(val)"></MyDropDown> -->
 
 </template>
 
-
- <!-- <MyDropDown
-    @callback="(val) => itemsPerPage = val"
-/> -->
 
 <style lang="sass" scoped>
 $height__row: 3rem
 $height__headerFooter: 2rem
 
+.v-select
+    width: 5rem
+
 .custom-table
     width: 100%
+    
 
 .main
     overflow-y: auto
     width: 100%
     max-height: 100%
     max-height: calc(100% - 2* $height__headerFooter)
-    // &::-webkit-scrollbar-thumb
-        // background: #0371ad
-        // border-radius: 16px
-    // &::-webkit-scrollbar 
-        // height: .85rem
-        // width: 8px
-        // border-radius: 16px
-        // background: white
-    // &::-webkit-scrollbar-track 
-        // background: #7f837f
     table
         width: 100%
         border-collapse: collapse
@@ -196,6 +183,8 @@ footer
     height: $height__headerFooter
     position: sticky
     // position: static
+    // z-index: 10 //for dropdown not covering
+    z-index: 10 //for dropdown not covering
     user-select: none
 
     background: #dddddd

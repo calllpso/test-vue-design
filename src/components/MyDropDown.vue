@@ -11,6 +11,9 @@ const list = ref(null)
 const listwrap = ref(null)
 const listHeight = ref(null)
 const liwrap = ref(null)
+const popperContainer = ref(null)
+const overlayElement = ref(null)
+
 
 // Parameters
 const isVisible = ref(false)
@@ -19,13 +22,12 @@ const currentValue = ref(listItems[0])
 
 
 
+
+
 async function selectItem(item){
     toggleVisible()
-    
-    // await new Promise(resolve => setTimeout(resolve, 200))  // await max-size transition
-    // popperContainer.value.appendChild(tooltip.value)
-    // overlayElement.value.remove()
     currentValue.value = item
+    overlayElement.value.remove()
 }
 
 
@@ -33,6 +35,7 @@ async function selectItem(item){
 
 // ***          Popper           *** \\
 function show() {  
+    createOverlay()
     // Make the tooltip visible
     tooltip.value.setAttribute('data-show', '');
     // Enable the event listeners
@@ -49,6 +52,11 @@ function show() {
     liwrap.value.style.height = listHeight.value
     // for down-up transition when placement top
     list.value.style.height = listHeight.value
+
+    
+    // await new Promise(resolve => setTimeout(resolve, 1000))  // await max-size transition
+    // setTimeout(() => {
+    // })
 }
 
 // async function hide() {
@@ -73,8 +81,32 @@ function toggleVisible(){
   isVisible.value = !isVisible.value
   isVisible.value ? show() : hide()
 }
-
 //\\ ***          Popper           *** //\\
+
+
+
+// create overlay
+async function createOverlay() {    
+    // overlay
+    overlayElement.value = document.createElement('div');
+    overlayElement.value.classList.add('overlay');
+    document.body.appendChild(overlayElement.value);
+    
+    // tooltip
+    overlayElement.value.appendChild(tooltip.value)
+    popperInstance.value.update()
+
+    // destroy overlay
+    overlayElement.value.addEventListener('click', async function(e){ 
+        if(e.target == e.currentTarget){
+            toggleVisible()
+            await new Promise(resolve => setTimeout(resolve, 200))  // await max-size transition
+            popperContainer.value.appendChild(tooltip.value)
+            overlayElement.value.remove()
+        }
+    });
+}
+
 
 onMounted(()=>{
     popperInstance.value = createPopper(button.value, tooltip.value, {
@@ -84,19 +116,28 @@ onMounted(()=>{
     tooltip.value.setAttribute('data-show', '');
     listHeight.value = list.value.getBoundingClientRect().height + 'px' 
     tooltip.value.removeAttribute('data-show');
-    console.log(listHeight.value) 
+    
+
     
     // set listHeight 0px and fix listwrap  for correct popper placement
     liwrap.value.style.height = '0px'
     listwrap.value.style.height = listHeight.value
 })
 
-
+const emits = defineEmits(['callback'])
+watch(
+    () => currentValue.value,
+    (newValue) => {
+        emits('callback', newValue)
+    }
+)
 
 </script>
 
 <template>
-    <!-- <button class="popper-btn" ref="button" aria-describedby="tooltip" @click="toggleVisible"  >My button</button> -->
+  <div ref="popperContainer" class="popperContainer">
+
+
 
     <div ref="button" class="popper-btn" @click="toggleVisible">
       
@@ -104,7 +145,7 @@ onMounted(()=>{
       <Svg  class="drop-menu__icon" name="chevron-down" :opened="isVisible"></Svg> 
     </div>
     
-    <div ref="tooltip" class="tooltip"> 
+    <div id="tooltip" ref="tooltip" class="tooltip"> 
       <div ref="listwrap" class="listwrap">
         <ul ref="list" id="list" class="list">
           <div ref="liwrap" class = "liwrap">
@@ -115,12 +156,22 @@ onMounted(()=>{
         </ul>
       </div>
     </div>
- 
+
+  </div>
 </template>
 
 
 
-<style lang="sass" scoped>
+
+<style lang="sass">
+.overlay
+    position: fixed
+    z-index: 50
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
 
 .liwrap
   height: max-content
@@ -145,10 +196,9 @@ onMounted(()=>{
     width: 5rem
     display: none
     cursor: pointer
-
+    z-index: 1000
     &[data-show] 
         display: block
-
     &[data-popper-placement^='top']
 
       // for down->up height transition when placement top
@@ -178,5 +228,6 @@ onMounted(()=>{
     transform: rotate(0deg)
     &[opened=true]
         transform: rotate(-180deg)
+
 
 </style>

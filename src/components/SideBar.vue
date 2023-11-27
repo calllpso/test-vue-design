@@ -192,8 +192,8 @@ const menuDown = ref([
             // type
             display: block
             // size
-            width: $width__icon_pin
-            height: $width__icon_pin
+            width: 1.5rem
+            height: 1.5rem
             
             
             // positions
