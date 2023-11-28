@@ -20,7 +20,7 @@ emits('callback_topBar__functionalButton', myComponent )
 
 let indata = []
 // set InData
-for(let id=1; id < 50; id++){
+for(let id=1; id < 150; id++){
     let list = 
     [
         {
@@ -112,9 +112,6 @@ const employeeTable = ref(new EmployeeTable(indata))
         <div class="custom">
             <MyTable :data="employeeTable"/>
         </div>
-        <div class="custom">
-            <MyTable :data="employeeTable"/>
-        </div>
 
       
 
@@ -126,7 +123,6 @@ const employeeTable = ref(new EmployeeTable(indata))
 .test
     height: 50%
     box-sizing: border-box
-    // padding: 5rem
 .test1
     max-height: 10%
     padding-top: 2rem
@@ -137,6 +133,4 @@ const employeeTable = ref(new EmployeeTable(indata))
     width: 100%
     display: flex
     height: 50%
-    // height: max-content
-    // height: 20rem
 </style>

@@ -52,7 +52,6 @@ const handleMouseEnter = () => {
 
 function togglePinSideBar(){
     pinSideBar.value = !pinSideBar.value
-    console.log(sidebar.value)
 }
 
 

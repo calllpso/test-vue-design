@@ -27,6 +27,8 @@ export class EmployeeForm {
                     other: [
                         { type: 'icon', icon: 'drag' },
                         { type: 'icon', icon: 'delete' },
+                        { type: 'icon', icon: 'arrow-up' },
+                        { type: 'icon', icon: 'arrow-down' },
                     ],
                 },
             },

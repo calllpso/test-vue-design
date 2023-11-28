@@ -15,7 +15,7 @@ export function routerPush(path=null, element=null){
         }
     }
     else{
-        console.log('error')
+        console.log('route error')
     }
 }
 
@@ -25,7 +25,7 @@ export function routerRelativePush(relativePath=null){
         // console.log(`${router.currentRoute.value.path}/${relativePath}`)
     }
     else{
-        console.log('error')
+        console.log('route error')
     }
 }
 

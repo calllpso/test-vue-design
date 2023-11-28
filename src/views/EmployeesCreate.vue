@@ -10,7 +10,6 @@ const out = ref(null)
 function get_callback(){
     out.value = employeeForm.apiJsonTransform()
 }
-
 </script>
 
 <template>

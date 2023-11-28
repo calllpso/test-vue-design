@@ -26,7 +26,7 @@ const tableRef = ref(null)
 
 
 function changePage(val){
-    console.log(tableRef.value)
+    // console.log(tableRef.value)
     tableRef.value.scrollTop = 0
 
     if (typeof val === 'number') {
@@ -120,16 +120,7 @@ $height__headerFooter: 2rem
     width: 100%
     max-height: 100%
     max-height: calc(100% - 2* $height__headerFooter)
-    // &::-webkit-scrollbar-thumb
-        // background: #0371ad
-        // border-radius: 16px
-    // &::-webkit-scrollbar 
-        // height: .85rem
-        // width: 8px
-        // border-radius: 16px
-        // background: white
-    // &::-webkit-scrollbar-track 
-        // background: #7f837f
+
     table
         width: 100%
         border-collapse: collapse

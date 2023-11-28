@@ -4,7 +4,7 @@ import MyBtn from '@components/MyBtn.vue'
 import InputText from '@components/InputText.vue'
 import sliderToggle from '@components/sliderToggle.vue'
 import Svg from '@components/Svg.vue'
-import { ref,toRaw, reactive } from 'vue'
+import { ref,toRaw, watch } from 'vue'
 
 
 
@@ -35,10 +35,114 @@ function delRow(index){
     }
  }
 
+// watch(
+//     () => localData,
+//     (newData) => {
+// }, { deep: true }
+// )
+
+///////////////////////// Yet useless
+// drag and drop priority changing
+const dragDrop = (event, item, index) => {
+    if (localData.value.multiple.length==1){
+        return 0
+    }
+    let dataCopy = JSON.parse(JSON.stringify(localData.value.multiple))
+    console.log('draggg')
+
+    // create wrap
+    let wrap = document.createElement('table');
+    wrap.classList.add('card-form__table_draggable');
+    let tr = document.getElementById(index + 'row')
+
+    // get width tr elements
+    for(var child=tr.firstChild; child!==null; child=child.nextSibling) {
+        child.style.width = child.getBoundingClientRect().width + 'px'
+    }
+    // get height and width
+    let trSize = tr.getBoundingClientRect()
+
+    wrap.style.position = 'absolute';
+    wrap.style.zIndex = 1000;
+    wrap.style.height = trSize.height + 'px'
+    wrap.style.width = trSize.width + 'px'
+    wrap.appendChild(tr);
+    
+
+    document.body.append(wrap);
+    
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp)
+    
+    
+    console.log('offset',event.pageX)
+
+    function onMouseMove(event) {
+        wrap.style.left = trSize.left + 'px';
+        wrap.style.top = event.pageY - wrap.offsetHeight / 2 + 'px';
+    }
+
+    function onMouseUp(e){
+        // insert and delete rows
+        // dataCopy.push(item)
+        // localData.value.multiple = dataCopy
+        document.removeEventListener('mousemove', onMouseMove)
+        document.removeEventListener('mouseup', onMouseUp);
+        wrap.remove()
+    }
+    function placeRow(mouseY){
+        let prependRow = null
+        const dragrows = Array.from(document.getElementsByClassName('dragrow'))
+        dragrows.forEach((row, index) => {
+            const rect = row.getBoundingClientRect();
+            if (mouseY > rect.top && mouseY < rect.bottom) {
+                console.log(mouseY, rect.top, rect.bottom)
+
+                prependRow =  row.id
+                return
+            }
+        })
+        if (prependRow != null){
+            // console.log('for', prependRow)
+            return prependRow
+        }
+        else{
+            let rectFirstRow = dragrows[0].getBoundingClientRect()
+            prependRow = (mouseY > rectFirstRow.bottom) ? dragrows[dragrows.length-1].id : dragrows[0].id
+            // console.log('after for', prependRow)
+            return prependRow
+        }
+    }
+}
+
+/////////// Yet Useful
+const moveItem = (index, direction) => {
+    if (direction === 'up' && index > 0) {
+    // Передвигаем элемент вверх
+        [localData.value.multiple[index - 1], localData.value.multiple[index]] = [localData.value.multiple[index], localData.value.multiple[index - 1]];
+    } 
+    else if (direction === 'down' && index < localData.value.multiple.length - 1) {
+    // Передвигаем элемент вниз
+        [localData.value.multiple[index + 1], localData.value.multiple[index]] = [localData.value.multiple[index], localData.value.multiple[index + 1]];
+    }
+};
+
+
+
+function clickHandle(icon, index){
+    if (icon=='delete'){
+        delRow(index)
+    }
+    else if (icon.includes('arrow')){
+        let direction = icon.split('-')[1]
+        moveItem(index, direction)
+    }
+}
+
 </script>
 
 <template>
-
 <div class="card-form">
     <table class="card-form__table">
         <thead>
@@ -59,8 +163,9 @@ function delRow(index){
             </template>
 
 
-            <template v-for="(item, index) in localData.multiple" >
-                <tr>
+                <template v-for="(item, index) in localData.multiple" >
+                    
+                <tr :id="index + 'row'">
                     <td class="card-form__col-name"> {{ item.name }} </td>
                     <td v-if="item.type=='input'">
                         <InputText placeholder="значение" :value="item.value" @callback="(val) => item.value = val"/>
@@ -81,7 +186,10 @@ function delRow(index){
                                         v-if=" el.type == 'icon'"  
                                         class="card-form__icon" 
                                         :name="el.icon"
-                                        @click="el.icon == 'delete' ? delRow(index) : ''">
+                                        @click="clickHandle(el.icon, index)"
+                                        :disabled="(el.icon == 'arrow-up' && index==0) || (el.icon == 'arrow-down' && index==localData.multiple.length - 1)"
+                                        >
+                                        <!-- @click="el.icon == 'delete' ? delRow(index) : ''" -->
                                     </Svg>   
                                 </div>    
                             </template>   
@@ -107,7 +215,7 @@ function delRow(index){
 </div>
 </template>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import '@assets/main'
 
 .audio
@@ -137,6 +245,8 @@ function delRow(index){
         width: 100%
         height: max-content
         tr
+            &:hover
+                cursor: pointer
             height: 3rem
             td
                 padding: 0  //delete default padding
@@ -170,7 +280,60 @@ function delRow(index){
             .card-form__flex-item
                 display: flex
                 align-items: center
-                // margin-right: auto
+                gap: .5rem
+                color: green
+                .card-form__icon
+                    width: 1.5rem
+                    cursor: pointer
+                    fill: black 
+                    &[disabled=true]
+                        fill: #c2c2c2
+
+
+table.card-form__table_draggable
+        &:hover
+            cursor: pointer
+        background: #c8d8d8
+        table-layout: auto 
+        margin: 0
+        user-select: none
+        width: 100%
+        height: max-content
+        tr
+            width: 100%
+            height: 3rem
+            td
+                padding: 0  //delete default padding
+            td:first-child
+                width: 0 //for grow disabling td
+            td:last-child
+                width: 0 //for grow disabling td
+
+        .card-form__bottom
+            text-align: center
+
+        .card-form__col-name
+            text-align: right
+            font-family: Roboto
+            font-weight: 100
+            font-size: 1rem
+            padding-right: 1rem
+
+        .card-form__icon_plus
+            width: 1.25rem
+            cursor: pointer
+            fill: white 
+
+        .card-form__flex-container
+            display: flex
+            justify-content: center
+            margin: 0 2rem
+            gap: 2rem
+            
+
+            .card-form__flex-item
+                display: flex
+                align-items: center
                 gap: .5rem
                 .card-form__icon
                     width: 1.5rem
